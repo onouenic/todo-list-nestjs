@@ -1,29 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { TaskEntity } from './task.entity';
-import { DeleteResult, UpdateResult } from 'typeorm';
 import { TaskRepository } from './task.repository';
+import { Task } from './task.schema';
+import { UpdateWriteOpResult } from 'mongoose';
+import { GetTaskDto } from './dto/GetTask.dto';
+import { CreateTaskDto } from './dto/CreateTask.dto';
 
 @Injectable()
 export class TaskService {
-  constructor(
-    @InjectRepository(TaskEntity)
-    private readonly taskRepository: TaskRepository,
-  ) {}
+  constructor(private readonly taskRepository: TaskRepository) {}
 
-  async findAll(): Promise<TaskEntity[]> {
+  async findAll(): Promise<GetTaskDto[]> {
     return await this.taskRepository.findAll();
   }
 
-  async createTask(task: TaskEntity): Promise<TaskEntity> {
-    return await this.taskRepository.createTask(task);
+  async createTask(task: CreateTaskDto): Promise<CreateTaskDto> {
+    const tasks = await this.taskRepository.findAll();
+    const id = tasks.length + 1;
+    return await this.taskRepository.createTask(id, task);
   }
 
-  async updateTask(id: string, task: TaskEntity): Promise<UpdateResult> {
+  async updateTask(id: string, task: Task): Promise<UpdateWriteOpResult> {
     return await this.taskRepository.updateTask(id, task);
   }
 
-  async deleteTask(id: string): Promise<DeleteResult> {
+  async deleteTask(id: string): Promise<{ message: string }> {
     return await this.taskRepository.deleteTask(id);
   }
 }
