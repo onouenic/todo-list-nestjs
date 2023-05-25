@@ -13,6 +13,7 @@ import { TaskService } from './task.service';
 import { Task } from './task.schema';
 import { CreateTaskDto } from './dto/CreateTask.dto';
 import { Response } from 'express';
+import { UpdateTaskDto } from './dto/UpdateTask.dto';
 
 @Controller('task')
 export class TaskController {
@@ -42,7 +43,7 @@ export class TaskController {
   async updateTask(
     @Res() res: Response,
     @Param('id') id: string,
-    @Body() task: Task,
+    @Body() task: UpdateTaskDto,
   ) {
     const updateTask = await this.taskService.updateTask(id, task);
     return res.status(HttpStatus.OK).json(updateTask);
