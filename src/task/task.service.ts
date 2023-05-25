@@ -4,6 +4,7 @@ import { Task } from './task.schema';
 import { UpdateWriteOpResult } from 'mongoose';
 import { GetTaskDto } from './dto/GetTask.dto';
 import { CreateTaskDto } from './dto/CreateTask.dto';
+import { UpdateTaskDto } from './dto/UpdateTask.dto';
 
 @Injectable()
 export class TaskService {
@@ -13,14 +14,20 @@ export class TaskService {
     return await this.taskRepository.findAll();
   }
 
-  async createTask(task: CreateTaskDto): Promise<CreateTaskDto> {
+  async createTask({ name }: CreateTaskDto): Promise<CreateTaskDto> {
     const tasks = await this.taskRepository.findAll();
     const id = tasks.length + 1;
-    return await this.taskRepository.createTask(id, task);
+    const completed = false;
+    return await this.taskRepository.createTask(id, { name, completed });
   }
 
-  async updateTask(id: string, task: Task): Promise<UpdateWriteOpResult> {
-    return await this.taskRepository.updateTask(id, task);
+  async updateTask(
+    id: string,
+    task: UpdateTaskDto,
+  ): Promise<UpdateWriteOpResult> {
+    return await this.taskRepository.updateTask(id, {
+      completed: task.completed,
+    });
   }
 
   async deleteTask(id: string): Promise<{ message: string }> {
