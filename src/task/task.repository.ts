@@ -4,6 +4,7 @@ import { Model, UpdateWriteOpResult } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { GetTaskDto } from './dto/GetTask.dto';
 import { CreateTaskDto } from './dto/CreateTask.dto';
+import { UpdateTaskDto } from './dto/UpdateTask.dto';
 
 @Injectable()
 export class TaskRepository {
@@ -21,7 +22,10 @@ export class TaskRepository {
     return await this.taskRepository.create(newTask);
   }
 
-  async updateTask(id: string, task: Task): Promise<UpdateWriteOpResult> {
+  async updateTask(
+    id: string,
+    task: UpdateTaskDto,
+  ): Promise<UpdateWriteOpResult> {
     return await this.taskRepository.updateOne({ id: id }, { $set: task });
   }
 
