@@ -10,7 +10,6 @@ import {
   Res,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
-import { Task } from './task.schema';
 import { CreateTaskDto } from './dto/CreateTask.dto';
 import { Response } from 'express';
 import { UpdateTaskDto } from './dto/UpdateTask.dto';

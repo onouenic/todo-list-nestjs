@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { TaskRepository } from './task.repository';
-import { Task } from './task.schema';
 import { UpdateWriteOpResult } from 'mongoose';
 import { GetTaskDto } from './dto/GetTask.dto';
 import { CreateTaskDto } from './dto/CreateTask.dto';
 import { UpdateTaskDto } from './dto/UpdateTask.dto';
+import { UpdateResult } from 'typeorm';
 
 @Injectable()
 export class TaskService {
@@ -15,16 +15,10 @@ export class TaskService {
   }
 
   async createTask({ name }: CreateTaskDto): Promise<CreateTaskDto> {
-    const tasks = await this.taskRepository.findAll();
-    const id = tasks.length + 1;
-    const completed = false;
-    return await this.taskRepository.createTask(id, { name, completed });
+    return await this.taskRepository.createTask({ name });
   }
 
-  async updateTask(
-    id: string,
-    task: UpdateTaskDto,
-  ): Promise<UpdateWriteOpResult> {
+  async updateTask(id: string, task: UpdateTaskDto): Promise<UpdateResult> {
     return await this.taskRepository.updateTask(id, {
       completed: task.completed,
     });
