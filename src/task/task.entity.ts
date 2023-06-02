@@ -1,16 +1,13 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('task')
 export class TaskEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
-  @Column()
+  @Column('varchar')
   name: string;
 
-  @Column()
-  description: string;
-
-  @Column()
+  @Column({ default: false })
   completed: boolean;
 }
