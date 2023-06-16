@@ -1,8 +1,8 @@
-GET http://localhost:3001/task
+GET http://host:port/task
 
 ###
 
-POST http://localhost:3001/task HTTP/1.1
+POST http://host:port/task HTTP/1.1
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:3001/task/2 HTTP/1.1
+PUT http://host:port/task/2 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -20,6 +20,6 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3001/task/1 HTTP/1.1
+DELETE http://host:port/task/1 HTTP/1.1
 
 ###
