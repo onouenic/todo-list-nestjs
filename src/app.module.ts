@@ -4,15 +4,17 @@ import { TaskModule } from './task/task.module';
 // import { ConfigModule } from '@nestjs/config';
 // import { MongooseModule } from '@nestjs/mongoose';
 
+// SUBSTITUIR OS VALORES PARA CONFIGURAR O ACESSO AO BANCO PELO TYPEORM
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '0.0.0.0',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'db_tasks',
+      host: host,
+      port: port,
+      username: username,
+      password: password,
+      database: dbname,
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: false,
       logging: true,
